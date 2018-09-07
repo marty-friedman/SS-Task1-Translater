@@ -2,67 +2,59 @@ package com.egrasoft.ss.translater.controller;
 
 import com.egrasoft.ss.translater.service.FileManagerService;
 import com.egrasoft.ss.translater.service.LocalizationService;
-import com.egrasoft.ss.translater.service.impl.FileManagerServiceImpl;
-import com.egrasoft.ss.translater.service.impl.LocalizationServiceImpl;
+import com.egrasoft.ss.translater.util.Constants;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 
 public class FrameController {
-    private static final String ABOUT_TITLE_KEY = "frame.about.title";
-    private static final String ABOUT_CONTENT_TEXT_KEY = "frame.about.contenttext";
-    private static final String FILE_ERROR_TITLE_KEY = "frame.file.error.title";
-    private static final String FILE_OPEN_DIALOG_TITLE_KEY = "frame.file.open.title";
-    private static final String FILE_OPEN_ERROR_CONTENT_TEXT_KEY = "frame.file.open.error.contenttext";
-    private static final String ASK_FOR_SAVING_TITLE_KEY = "frame.askforsaving.title";
-    private static final String ASK_FOR_SAVING_CONTENT_TEXT_KEY = "frame.askforsaving.contenttext";
-    private static final String ASK_FOR_SAVING_CANCEL_KEY = "frame.askforsaving.cancel";
-    private static final String ASK_FOR_SAVING_SAVE_KEY = "frame.askforsaving.save";
-    private static final String ASK_FOR_SAVING_DONT_SAVE_KEY = "frame.askforsaving.dontsave";
-    private static final String FILE_DIALOG_TEXT_EXTENSIONS_DESCRIPTION = "frame.file.textextensions.description";
-
-    private LocalizationService localizationService = LocalizationServiceImpl.getInstance();
-    private FileManagerService fileManagerService = FileManagerServiceImpl.getInstance();
+    private LocalizationService localizationService = LocalizationService.getInstance();
+    private FileManagerService fileManagerService = FileManagerService.getInstance();
 
     private File currentFile;
-    private boolean savedState;
+    private BooleanProperty savedState = new SimpleBooleanProperty();
 
     @FXML
     private TextArea fileTextArea;
+    private Stage stage;
 
     @FXML
     private void initialize() {
-        fileTextArea.textProperty().addListener((observable, oldValue, newValue) -> savedState = false);
+        fileTextArea.textProperty().addListener((observable, oldValue, newValue) -> savedState.set(false));
+        savedState.addListener((observable, oldValue, newValue) -> updateFrameTitle());
     }
 
     @FXML
-    private void doOpen() {
-        if (currentFile != null && !savedState) {
+    private void doFileOpen() {
+        if (currentFile != null && !savedState.get()) {
             UserSaveSelection selection = askForSaving();
-            if (selection == UserSaveSelection.CANCEL || (selection == UserSaveSelection.SAVE && !doSave()))
+            if (selection == UserSaveSelection.CANCEL || (selection == UserSaveSelection.SAVE && !doFileSave()))
                 return;
         }
 
-        File file = createFileChooser(FILE_OPEN_DIALOG_TITLE_KEY).showOpenDialog(null);
+        File file = createFileChooser(Constants.Dialogs.FILE_OPEN_TITLE_KEY).showOpenDialog(null);
         if (file != null)
             openNewFile(file);
     }
 
     @FXML
-    private boolean doSave() {
+    private boolean doFileSave() {
         //todo
         return false;
     }
 
     @FXML
-    private void doSaveAs() {
+    private void doFileSaveAs() {
         //todo
     }
 
@@ -72,7 +64,7 @@ public class FrameController {
     }
 
     @FXML
-    private void doTranslationSettings() {
+    private void doEditTranslationSettings() {
         //todo
     }
 
@@ -83,7 +75,7 @@ public class FrameController {
 
     @FXML
     private void doAbout() {
-        createMessageDialog(Alert.AlertType.INFORMATION, ABOUT_TITLE_KEY, ABOUT_CONTENT_TEXT_KEY).showAndWait();
+        createMessageDialog(Alert.AlertType.INFORMATION, Constants.Dialogs.ABOUT_TITLE_KEY, Constants.Dialogs.ABOUT_CONTENT_TEXT_KEY).showAndWait();
     }
 
     private UserSaveSelection askForSaving() {
@@ -104,9 +96,9 @@ public class FrameController {
             fileTextArea.setVisible(true);
             fileTextArea.setText(content);
             currentFile = file;
-            savedState = true;
+            savedState.set(true);
         } catch (IOException exc) {
-            createMessageDialog(Alert.AlertType.ERROR, FILE_ERROR_TITLE_KEY, FILE_OPEN_ERROR_CONTENT_TEXT_KEY).showAndWait();
+            createMessageDialog(Alert.AlertType.ERROR, Constants.Dialogs.FILE_ERROR_TITLE_KEY, Constants.Dialogs.FILE_OPEN_ERROR_CONTENT_TEXT_KEY).showAndWait();
         }
     }
 
@@ -120,15 +112,15 @@ public class FrameController {
 
     private Alert createAskForSavingDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(localizationService.getString(ASK_FOR_SAVING_TITLE_KEY));
+        alert.setTitle(localizationService.getString(Constants.Dialogs.ASK_FOR_SAVING_TITLE_KEY));
         alert.setHeaderText(null);
-        alert.setContentText(localizationService.getString(ASK_FOR_SAVING_CONTENT_TEXT_KEY));
+        alert.setContentText(localizationService.getString(Constants.Dialogs.ASK_FOR_SAVING_CONTENT_TEXT_KEY));
 
-        ButtonType saveButtonType = new ButtonType(localizationService.getString(ASK_FOR_SAVING_SAVE_KEY),
+        ButtonType saveButtonType = new ButtonType(localizationService.getString(Constants.Dialogs.ASK_FOR_SAVING_SAVE_KEY),
                 ButtonBar.ButtonData.YES);
-        ButtonType dontSaveButtonType = new ButtonType(localizationService.getString(ASK_FOR_SAVING_DONT_SAVE_KEY),
+        ButtonType dontSaveButtonType = new ButtonType(localizationService.getString(Constants.Dialogs.ASK_FOR_SAVING_DONT_SAVE_KEY),
                 ButtonBar.ButtonData.NO);
-        ButtonType cancelButtonType = new ButtonType(localizationService.getString(ASK_FOR_SAVING_CANCEL_KEY),
+        ButtonType cancelButtonType = new ButtonType(localizationService.getString(Constants.Dialogs.ASK_FOR_SAVING_CANCEL_KEY),
                 ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(saveButtonType, dontSaveButtonType, cancelButtonType);
 
@@ -139,9 +131,22 @@ public class FrameController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(localizationService.getString(titleKey));
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
-                localizationService.getString(FILE_DIALOG_TEXT_EXTENSIONS_DESCRIPTION), "txt");
+                localizationService.getString(Constants.Dialogs.FILE_TEXT_EXTENSIONS_DESCRIPTION), "txt");
         fileChooser.setSelectedExtensionFilter(extensionFilter);
         return fileChooser;
+    }
+
+    private void updateFrameTitle() {
+        if (currentFile != null) {
+            String title = localizationService.getString(Constants.Frame.FRAME_TITLE_KEY) + " (" + currentFile.getName() + ")";
+            if (!savedState.get())
+                title += "*";
+            stage.setTitle(title);
+        }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private enum UserSaveSelection {CANCEL, SAVE, DONT_SAVE}

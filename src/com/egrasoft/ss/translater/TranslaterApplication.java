@@ -1,7 +1,8 @@
 package com.egrasoft.ss.translater;
 
+import com.egrasoft.ss.translater.controller.FrameController;
 import com.egrasoft.ss.translater.service.LocalizationService;
-import com.egrasoft.ss.translater.service.impl.LocalizationServiceImpl;
+import com.egrasoft.ss.translater.util.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,18 +14,17 @@ import java.util.Objects;
 
 public class TranslaterApplication extends Application {
     private static final String FRAME_VIEW_LOCATION = "translater/view/frame.fxml";
-    private static final String FRAME_TITLE_KEY = "frame.title";
-    private static final Integer FRAME_WIDTH = 800;
-    private static final Integer FRAME_HEIGHT = 500;
 
-    private LocalizationService localizationService = LocalizationServiceImpl.getInstance();
+    private LocalizationService localizationService = LocalizationService.getInstance();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL view = getClass().getClassLoader().getResource(FRAME_VIEW_LOCATION);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(view));
-        primaryStage.setTitle(localizationService.getString(FRAME_TITLE_KEY));
-        primaryStage.setScene(new Scene(root, FRAME_WIDTH, FRAME_HEIGHT));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(view));
+        Parent root = loader.load();
+        ((FrameController) loader.getController()).setStage(primaryStage);
+        primaryStage.setTitle(localizationService.getString(Constants.Frame.FRAME_TITLE_KEY));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

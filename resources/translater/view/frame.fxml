@@ -18,17 +18,17 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#doOpen" text="Open...">
+                  <MenuItem mnemonicParsing="false" onAction="#doFileOpen" text="Open...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#doSave" text="Save">
+                  <MenuItem mnemonicParsing="false" onAction="#doFileSave" text="Save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#doSaveAs" text="Save As...">
+                  <MenuItem mnemonicParsing="false" onAction="#doFileSaveAs" text="Save As...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                      </accelerator>
@@ -42,7 +42,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#doTranslationSettings" text="Translation Settings..." />
+                  <MenuItem mnemonicParsing="false" onAction="#doEditTranslationSettings" text="Translation Settings..." />
               <MenuItem mnemonicParsing="false" onAction="#doTranslate" text="Translate">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
