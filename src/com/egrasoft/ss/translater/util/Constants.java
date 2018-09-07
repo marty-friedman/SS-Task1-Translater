@@ -11,6 +11,8 @@ public class Constants {
         public static final String FILE_ERROR_TITLE_KEY = "dialog.file.error.title";
         public static final String FILE_OPEN_TITLE_KEY = "dialog.file.open.title";
         public static final String FILE_OPEN_ERROR_CONTENT_TEXT_KEY = "dialog.file.open.error.contenttext";
+        public static final String FILE_SAVE_TITLE_KEY = "dialog.file.save.title";
+        public static final String FILE_SAVE_ERROR_CONTENT_TEXT_KEY = "dialog.file.save.error.contenttext";
         public static final String FILE_TEXT_EXTENSIONS_DESCRIPTION = "dialog.file.textextensions.description";
         public static final String ASK_FOR_SAVING_TITLE_KEY = "dialog.askforsaving.title";
         public static final String ASK_FOR_SAVING_CONTENT_TEXT_KEY = "dialog.askforsaving.contenttext";

@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egrasoft.ss.translater.controller.FrameController">
    <children>
       <MenuBar prefHeight="29.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -69,6 +68,6 @@
             </Label>
          </center>
       </BorderPane>
-      <TextArea fx:id="fileTextArea" layoutX="46.0" layoutY="55.0" prefHeight="554.0" prefWidth="707.0" visible="false" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="55.0" />
+      <TextArea fx:id="fileTextArea" layoutX="46.0" layoutY="55.0" prefHeight="554.0" prefWidth="707.0" visible="false" wrapText="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="55.0" />
    </children>
 </AnchorPane>
