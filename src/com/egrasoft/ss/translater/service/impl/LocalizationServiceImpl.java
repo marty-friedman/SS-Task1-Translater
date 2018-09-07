@@ -18,11 +18,11 @@ public class LocalizationServiceImpl implements LocalizationService {
         return ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME, locale).getString(key);
     }
 
-    public static LocalizationServiceImpl getInstance() {
+    public static LocalizationService getInstance() {
         return SingletonHelper.instance;
     }
 
     private static class SingletonHelper {
-        private static final LocalizationServiceImpl instance = new LocalizationServiceImpl();
+        private static final LocalizationService instance = new LocalizationServiceImpl();
     }
 }
