@@ -25,6 +25,8 @@ public class FileManagerService {
         return SingletonHelper.instance;
     }
 
+    private FileManagerService() {}
+
     private static class SingletonHelper {
         private static final FileManagerService instance = new FileManagerService();
     }

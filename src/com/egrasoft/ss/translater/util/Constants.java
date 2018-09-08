@@ -1,6 +1,12 @@
 package com.egrasoft.ss.translater.util;
 
 public class Constants {
+    public static class Translation {
+        public static final String RULES_DELIMITER_PATTERN = "[\n ,]+";
+        public static final String TOKEN_PATTERN = "([\\p{L}\\d']+)";
+        public static final String RULES_PATTERN = TOKEN_PATTERN + "=" + TOKEN_PATTERN;
+    }
+
     public static class Frame {
         public static final String FRAME_TITLE_KEY = "frame.title";
     }

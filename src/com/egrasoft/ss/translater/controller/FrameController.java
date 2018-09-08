@@ -2,6 +2,7 @@ package com.egrasoft.ss.translater.controller;
 
 import com.egrasoft.ss.translater.service.FileManagerService;
 import com.egrasoft.ss.translater.service.LocalizationService;
+import com.egrasoft.ss.translater.service.TranslationService;
 import com.egrasoft.ss.translater.util.Constants;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -22,6 +23,7 @@ import java.io.IOException;
 public class FrameController {
     private LocalizationService localizationService = LocalizationService.getInstance();
     private FileManagerService fileManagerService = FileManagerService.getInstance();
+    private TranslationService translationService = TranslationService.getInstance();
 
     private Property<File> currentFile = new SimpleObjectProperty<>();
     private BooleanProperty savedState = new SimpleBooleanProperty();
@@ -52,14 +54,14 @@ public class FrameController {
 
     @FXML
     private boolean doFileSave() {
-        if (currentFile != null)
+        if (currentFile.getValue() != null)
             return saveCurrentFile();
         return false;
     }
 
     @FXML
     private void doFileSaveAs() {
-        if (currentFile != null) {
+        if (currentFile.getValue() != null) {
             File file = createFileChooser(Constants.Dialogs.FILE_SAVE_TITLE_KEY).showSaveDialog(null);
             if (file != null)
                 saveToFile(file);
@@ -78,7 +80,7 @@ public class FrameController {
 
     @FXML
     private void doTranslate() {
-        //todo
+        fileTextArea.setText(translationService.translate(fileTextArea.getText()));
     }
 
     @FXML
@@ -87,15 +89,16 @@ public class FrameController {
     }
 
     private UserSaveSelection askForSaving() {
-        return createAskForSavingDialog().showAndWait()
-                .map(ButtonType::getButtonData)
-                .map(buttonData -> {
-                    if (buttonData.equals(ButtonBar.ButtonData.YES))
-                        return UserSaveSelection.SAVE;
-                    else if (buttonData.equals(ButtonBar.ButtonData.NO))
-                        return UserSaveSelection.DONT_SAVE;
-                    return UserSaveSelection.CANCEL;
-                }).orElse(UserSaveSelection.CANCEL);
+        ButtonBar.ButtonData buttonData =  createAskForSavingDialog().showAndWait()
+                .map(ButtonType::getButtonData).orElse(ButtonBar.ButtonData.CANCEL_CLOSE);
+        switch (buttonData) {
+            case YES:
+                return UserSaveSelection.SAVE;
+            case NO:
+                return UserSaveSelection.DONT_SAVE;
+            default:
+                return UserSaveSelection.CANCEL;
+        }
     }
 
     private void openNewFile(File file) {
@@ -161,7 +164,7 @@ public class FrameController {
     }
 
     private void updateFrameTitle() {
-        if (currentFile != null) {
+        if (currentFile.getValue() != null) {
             String title = localizationService.getString(Constants.Frame.FRAME_TITLE_KEY) + " (" + currentFile.getValue().getName() + ")";
             if (!savedState.get())
                 title += "*";
