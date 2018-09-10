@@ -26,4 +26,8 @@ public class Constants {
         public static final String ASK_FOR_SAVING_SAVE_KEY = "dialog.askforsaving.save";
         public static final String ASK_FOR_SAVING_DONT_SAVE_KEY = "dialog.askforsaving.dontsave";
     }
+
+    public static class Settings {
+        public static final String SETTINGS_TITLE_KEY = "settings.title";
+    }
 }

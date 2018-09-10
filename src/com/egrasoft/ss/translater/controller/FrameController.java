@@ -2,6 +2,7 @@ package com.egrasoft.ss.translater.controller;
 
 import com.egrasoft.ss.translater.service.FileManagerService;
 import com.egrasoft.ss.translater.service.LocalizationService;
+import com.egrasoft.ss.translater.service.SettingsService;
 import com.egrasoft.ss.translater.service.TranslationService;
 import com.egrasoft.ss.translater.util.Constants;
 import javafx.application.Platform;
@@ -24,6 +25,7 @@ public class FrameController {
     private LocalizationService localizationService = LocalizationService.getInstance();
     private FileManagerService fileManagerService = FileManagerService.getInstance();
     private TranslationService translationService = TranslationService.getInstance();
+    private SettingsService settingsService = SettingsService.getInstance();
 
     private Property<File> currentFile = new SimpleObjectProperty<>();
     private BooleanProperty savedState = new SimpleBooleanProperty();
@@ -75,7 +77,12 @@ public class FrameController {
 
     @FXML
     private void doEditTranslationSettings() {
-        //todo
+        try {
+            settingsService.loadSettingsFrame().show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Platform.exit();
+        }
     }
 
     @FXML

@@ -14,6 +14,10 @@ public class LocalizationService {
         return ResourceBundle.getBundle(RESOURCE_BUNDLE_LOCATION, locale).getString(key);
     }
 
+    public ResourceBundle getCurrentBundle() {
+        return ResourceBundle.getBundle(RESOURCE_BUNDLE_LOCATION);
+    }
+
     public static LocalizationService getInstance() {
         return SingletonHelper.instance;
     }

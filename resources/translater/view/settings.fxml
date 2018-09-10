@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egrasoft.ss.translater.controller.SettingsController">
+   <children>
+      <TableView fx:id="rulesTable" editable="true" layoutX="183.0" prefHeight="400.0" prefWidth="565.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="sourceColumn" prefWidth="283.0" text="%settings.table.source" />
+          <TableColumn fx:id="targetColumn" prefWidth="281.0" text="%settings.table.target" />
+        </columns>
+      </TableView>
+      <Button layoutX="408.0" layoutY="372.0" mnemonicParsing="false" onAction="#doSettingsOk" prefHeight="26.0" prefWidth="75.0" text="%settings.button.ok" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="82.0" />
+      <Button layoutX="487.0" layoutY="372.0" mnemonicParsing="false" onAction="#doSettingsCancel" prefHeight="26.0" prefWidth="75.0" text="%settings.button.cancel" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+      <Button layoutX="328.0" layoutY="372.0" mnemonicParsing="false" onAction="#doSettingsAddRule" prefHeight="26.0" prefWidth="75.0" text="%settings.button.addrule" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="162.0" />
+   </children>
+</AnchorPane>
