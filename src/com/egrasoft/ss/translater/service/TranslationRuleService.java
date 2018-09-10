@@ -46,6 +46,7 @@ class TranslationRuleService {
             if (iterator.hasNext())
                 ruleWriter.write(", ");
         }
+        ruleWriter.flush();
         ruleWriter.close();
     }
 

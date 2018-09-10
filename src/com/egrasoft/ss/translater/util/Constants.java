@@ -29,5 +29,8 @@ public class Constants {
 
     public static class Settings {
         public static final String SETTINGS_TITLE_KEY = "settings.title";
+        public static final String SETTINGS_ERROR_TITLE_KEY = "settings.error.title";
+        public static final String SETTINGS_UNKNOWN_ERROR_CONTENT_TEXT_KEY = "settings.error.unknown.contenttext";
+        public static final String SETTINGS_RULE_ERROR_CONTENT_TEXT_KEY = "settings.error.rule.contenttext";
     }
 }
